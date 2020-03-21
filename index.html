@@ -1,7 +1,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="https://www.bootcss.com/p/layoutit/css/bootstrap-combined.min.css" rel="stylesheet">
-
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 
 <title>高度转换测试</title>
 <style type="text/css">
@@ -91,4 +91,59 @@ document.onkeydown = function(event) {
 	}
 
 
+</script>
+<script src="http://pv.sohu.com/cityjson"></script>
+<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=5c426b4f76506b4b1fa8b09dc3b1b414&plugin=AMap.Geocoder"></script>
+<script>
+    console.log(returnCitySN["cip"]+','+returnCitySN["cname"])  
+    $.ajax({
+        type: "get",
+        url: "https://restapi.amap.com/v4/ip?key=10bcf329e4f8bca558562c5f6146663e&ip="+returnCitySN["cip"],
+        dataType: "json",
+        success: function (response) {
+            console.log(response)
+            var lnglat  = [];
+            var marker = new AMap.Marker();;
+            lnglat.push(response.data.lng)
+            lnglat.push(response.data.lat)
+            marker.setPosition(lnglat);
+            var geocoder = new AMap.Geocoder({
+                city: "010", //城市设为北京，默认：“全国”
+                radius: 1000 //范围，默认：500
+            });
+            geocoder.getAddress(lnglat, function(status, result) {
+                console.log(lnglat,status,result)
+                if (status === 'complete'&&result.regeocode) {
+                    var address = result.regeocode.formattedAddress;
+                    console.log(address)
+                    let data = 
+                                    {   
+                                        "position":lnglat,
+                                        "name":$('input').val(),
+                                        "ip":returnCitySN["cip"],
+                                        "city":returnCitySN["cname"],
+                                        "address":address
+                                    }
+                    var settings = {
+				  "url": "https://api.bmob.cn/1/classes/ip",
+				  "method": "POST",
+				  "timeout": 0,
+				  "headers": {
+				    "X-Bmob-Application-Id": "619793fa43e38bc41fe1937ec0edc450",
+				    "X-Bmob-REST-API-Key": "34b546eedd0717c7040b72249dacdbc8",
+				    "Content-Type": "application/json"
+				  },
+				  "data": JSON.stringify({"ip":returnCitySN["cip"],"address":address,"city":returnCitySN["cname"]}),
+				};
+
+		$.ajax(settings).done(function (response) {
+		  console.log(response);
+		});
+                }else{
+                    log.error('根据经纬度查询地址失败')
+                }
+            });
+            }
+    });
+   
 </script>
