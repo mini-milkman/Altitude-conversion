@@ -1,174 +1,193 @@
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="https://www.bootcss.com/p/layoutit/css/bootstrap-combined.min.css" rel="stylesheet">
-<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+	<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 
-<title>高度转换测试</title>
-<style type="text/css">
-.row{margin:15px; padding:15px}
-.options{margin:150px; padding:50px}
-.ans{margin:50px; padding:50px}
-</style>
+	<title>高度转换测试</title>
+	<style type="text/css">
+		.row {
+			margin: 15px;
+			padding: 15px
+		}
+
+		.options {
+			margin: 150px;
+			padding: 50px
+		}
+
+		.ans {
+			margin: 50px;
+			padding: 50px
+		}
+	</style>
 </head>
+
 <body>
-<div class="container-fluid">
-	<div class="row-fluid">
-		<div class="span12">
-			<div class="row-fluid">
-				<div class="span2">
-				</div>
-				<div class="span8">
-					<h1 class="text-center text-success options" id="option">
-						点击”出题“开始
-					</h1>
-					<h1 class="text-center text-success ans" id="ans">
+	<div class="columns">
+		<div class="column">
+
+		</div>
+		<div class="column is-four-fifths">
+			<div class="box" style="margin: 20px; height:500px;text-align:center; position:relative">
+				<h1 class="title is-2" id="option" style="margin: 20px">
+					点击”出题“开始
+				</h1>
+			</br>
+				<h1 class="title is-2" id="ans" style="margin: 20px">
 					点击”答案“，出现答案
-					</h1>
-					<div class="row-fluid">
-						<div class="span4">
-						</div>
-						<div class="span4">
-							 <button class="btn btn-large btn-success " type="button" onclick="show_ops()">出题</button>
-						</div>
-						<div class="span4">
-							 <button class="btn btn-large btn-success" type="button" onclick="show_ans()">答案</button>
-						</div>
+				</h1>
+				<div class="columns  is-mobile" style="position:absolute;width: 100%;text-align: center;bottom: 50px;">
+					<div class="column">
+						<button class="button is-primary is-large" onclick="show_ops()">出题</button>
 					</div>
-				</div>
-				<div class="span2">
+					<div class="column">
+						<button class="button is-primary is-large" onclick="show_ans()">答案</button>
+					</div>
 				</div>
 			</div>
 		</div>
+		<div class="column">
+		</div>
 	</div>
-</div>
-<script type="text/javascript">
-var list = [600, 900, 1200, 1500, 1800, 2100, 2400, 2700, 3000, 3300, 3600, 3900, 4200, 4500, 4800, 5100, 5400, 5700, 6000, 6300, 6600, 6900, 7200, 7500, 7800, 8100, 8400, 8900, 9200, 9500, 9800, 10100, 10400, 10700, 11000, 11300];
-var i = 600;
-var o = 8900;
-var option;
+	<script type="text/javascript">
+		var list = [600, 900, 1200, 1500, 1800, 2100, 2400, 2700, 3000, 3300, 3600, 3900, 4200, 4500, 4800, 5100, 5400, 5700, 6000, 6300, 6600, 6900, 7200, 7500, 7800, 8100, 8400, 8900, 9200, 9500, 9800, 10100, 10400, 10700, 11000, 11300];
+		var i = 600;
+		var o = 8900;
+		var option;
 
-function get_ans(ops){
-	var ops, anss
-	if (ops <= 2700&&ops >= 1200){
-		anss = ((ops/3) - 10) *10;}
-	else if (ops <= 4500&&ops >=3000){
-		anss = ((ops/3) - 20) *10;}
-	else if (ops <= 6600&&ops >= 4800){
-		anss = ((ops/3) - 30) *10;}
-	else if (ops <= 8400&&ops >= 6900){
-		anss = ((ops/3) - 40) *10;}
-	else if (ops >= 8900){
-		anss = 29100 + ((ops - 8900)/300*1000);}
-	else if (ops == 600){
-		anss = 2000;}
-	else if (ops == 900){
-		anss = 3000;}
-	return anss
-}
-
-function get_ops(){
-	var index = Math.floor((Math.random()*list.length));
-	return(list[index]);
-}
-
-function show_ops(){
-	option = get_ops()
-	document.getElementById("option").innerHTML = option + " m";
-	document.getElementById("ans").innerHTML = "点击”答案“，出现答案";
-}
-
-function show_ans(){
-	ans = get_ans(ops=option) 
-	document.getElementById("ans").innerHTML = ans + " ft";
-}
-
-document.onkeydown = function(event) {
-	var e = event || window.event || arguments.callee.caller.arguments[0];
-	if (e && e.keyCode == 40){
-		show_ops();}
-	else if (e && e.keyCode== 39){
-		show_ans();}
-	}
-
-
-</script>
-<script src="http://pv.sohu.com/cityjson"></script>
-<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=5c426b4f76506b4b1fa8b09dc3b1b414&plugin=AMap.Geocoder"></script>
-<script>
-    console.log(returnCitySN["cip"]+','+returnCitySN["cname"])
-	var data_ = {
-		"position":[],
-		"name":"null",
-		"ip":returnCitySN["cip"],
-		"city":returnCitySN["cname"],
-		"address":"null"
-				};
-	var settings = {
-	  "url": "https://api.bmob.cn/1/classes/ip",
-	  "method": "POST",
-	  "timeout": 0,
-	  "headers": {
-		"X-Bmob-Application-Id": "619793fa43e38bc41fe1937ec0edc450",
-		"X-Bmob-REST-API-Key": "34b546eedd0717c7040b72249dacdbc8",
-		"Content-Type": "application/json"
-				},
-	  "data":JSON.stringify(data_) 
-		};
-    $.ajax({
-        type: "get",
-        url: "https://restapi.amap.com/v4/ip?key=10bcf329e4f8bca558562c5f6146663e&ip="+returnCitySN["cip"],
-        dataType: "json",
-        success: function (response) {
-            console.log(response)
-			if (response.errcode){
-				console.log('根据经纬度查询地址失败')
-				$.ajax(settings).done(function (response) {
-				  console.log(response);
-				});
-			}else{
-				var lnglat  = [];
-				var marker = new AMap.Marker();;
-				lnglat.push(response.data.lng)
-				lnglat.push(response.data.lat)
-				marker.setPosition(lnglat);
-				var geocoder = new AMap.Geocoder({
-					city: "010", //城市设为北京，默认：“全国”
-					radius: 1000 //范围，默认：500
-					});
-				geocoder.getAddress(lnglat, function(status, result) {
-					console.log(lnglat,status,result)
-					if (status === 'complete'&&result.regeocode) {
-						var address = result.regeocode.formattedAddress;
-						console.log(address)
-						let data = 
-										{   
-											"position":lnglat,
-											"name":$('input').val(),
-											"ip":returnCitySN["cip"],
-											"city":returnCitySN["cname"],
-											"address":address
-										}
-						settings.data = JSON.stringify(data);
-						console.log(settings.data)
-						console.log(settings)
-						$.ajax(settings).done(function (response) {
-						  console.log(response);
-							});
-					}else{
-						console.log('根据经纬度查询地址失败')
-						$.ajax(settings).done(function (response) {
-						  console.log(response);
-						});
-						}
-																	}		
-				
-            )}
-			},
-		error: function(){
-			$.ajax(settings).done(function (response) {
-			  console.log(response);
-			});
+		function get_ans(ops) {
+			var ops, anss
+			if (ops <= 2700 && ops >= 1200) {
+				anss = ((ops / 3) - 10) * 10;
+			}
+			else if (ops <= 4500 && ops >= 3000) {
+				anss = ((ops / 3) - 20) * 10;
+			}
+			else if (ops <= 6600 && ops >= 4800) {
+				anss = ((ops / 3) - 30) * 10;
+			}
+			else if (ops <= 8400 && ops >= 6900) {
+				anss = ((ops / 3) - 40) * 10;
+			}
+			else if (ops >= 8900) {
+				anss = 29100 + ((ops - 8900) / 300 * 1000);
+			}
+			else if (ops == 600) {
+				anss = 2000;
+			}
+			else if (ops == 900) {
+				anss = 3000;
+			}
+			return anss
 		}
-    });
-	
-</script>
+
+		function get_ops() {
+			var index = Math.floor((Math.random() * list.length));
+			return (list[index]);
+		}
+
+		function show_ops() {
+			option = get_ops()
+			document.getElementById("option").innerHTML = option + " m";
+			document.getElementById("ans").innerHTML = "点击”答案“，出现答案";
+		}
+
+		function show_ans() {
+			ans = get_ans(ops = option)
+			document.getElementById("ans").innerHTML = ans + " ft";
+		}
+
+		document.onkeydown = function (event) {
+			var e = event || window.event || arguments.callee.caller.arguments[0];
+			if (e && e.keyCode == 40) {
+				show_ops();
+			}
+			else if (e && e.keyCode == 39) {
+				show_ans();
+			}
+		}
+
+
+	</script>
+	<script src="http://pv.sohu.com/cityjson"></script>
+	<script type="text/javascript"
+		src="https://webapi.amap.com/maps?v=1.4.15&key=5c426b4f76506b4b1fa8b09dc3b1b414&plugin=AMap.Geocoder"></script>
+	<script>
+		console.log(returnCitySN["cip"] + ',' + returnCitySN["cname"])
+		var data_ = {
+			"position": [],
+			"name": "null",
+			"ip": returnCitySN["cip"],
+			"city": returnCitySN["cname"],
+			"address": "null"
+		};
+		var settings = {
+			"url": "https://api.bmob.cn/1/classes/ip",
+			"method": "POST",
+			"timeout": 0,
+			"headers": {
+				"X-Bmob-Application-Id": "619793fa43e38bc41fe1937ec0edc450",
+				"X-Bmob-REST-API-Key": "34b546eedd0717c7040b72249dacdbc8",
+				"Content-Type": "application/json"
+			},
+			"data": JSON.stringify(data_)
+		};
+		$.ajax({
+			type: "get",
+			url: "https://restapi.amap.com/v4/ip?key=10bcf329e4f8bca558562c5f6146663e&ip=" + returnCitySN["cip"],
+			dataType: "json",
+			success: function (response) {
+				console.log(response)
+				if (response.errcode) {
+					console.log('根据经纬度查询地址失败')
+					$.ajax(settings).done(function (response) {
+						console.log(response);
+					});
+				} else {
+					var lnglat = [];
+					var marker = new AMap.Marker();;
+					lnglat.push(response.data.lng)
+					lnglat.push(response.data.lat)
+					marker.setPosition(lnglat);
+					var geocoder = new AMap.Geocoder({
+						city: "010", //城市设为北京，默认：“全国”
+						radius: 1000 //范围，默认：500
+					});
+					geocoder.getAddress(lnglat, function (status, result) {
+						console.log(lnglat, status, result)
+						if (status === 'complete' && result.regeocode) {
+							var address = result.regeocode.formattedAddress;
+							console.log(address)
+							let data =
+							{
+								"position": lnglat,
+								"name": $('input').val(),
+								"ip": returnCitySN["cip"],
+								"city": returnCitySN["cname"],
+								"address": address
+							}
+							settings.data = JSON.stringify(data);
+							console.log(settings.data)
+							console.log(settings)
+							$.ajax(settings).done(function (response) {
+								console.log(response);
+							});
+						} else {
+							console.log('根据经纬度查询地址失败')
+							$.ajax(settings).done(function (response) {
+								console.log(response);
+							});
+						}
+					}
+
+					)
+				}
+			},
+			error: function () {
+				$.ajax(settings).done(function (response) {
+					console.log(response);
+				});
+			}
+		});
+
+	</script>
